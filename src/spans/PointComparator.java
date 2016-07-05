@@ -10,8 +10,8 @@ public class PointComparator implements Comparator<Point>
 	{
 		if (lhs.value > rhs.value) return 1;
 		if (lhs.value < rhs.value) return -1;
+		if(lhs.type==rhs.type) return 0;
 		if (lhs.includes(rhs)) return -1;
-		if (rhs.includes(lhs)) return 1;
-		return 0;
+		return 1;
 	}
 }
