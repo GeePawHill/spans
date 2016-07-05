@@ -1,6 +1,6 @@
 package spans;
 
-public class Point implements Comparable<Point>
+public class Point
 {
 
 	public final int value;
@@ -33,16 +33,6 @@ public class Point implements Comparable<Point>
 		default:
 			throw new RuntimeException("Non-existent type.");
 		}
-	}
-
-	@Override
-	public int compareTo(Point rhs)
-	{
-		if (value > rhs.value) return 1;
-		if (value < rhs.value) return -1;
-		if (includes(rhs)) return -1;
-		if (rhs.includes(this)) return 1;
-		return 0;
 	}
 
 	@Override

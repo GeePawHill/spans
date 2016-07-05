@@ -23,7 +23,8 @@ public class SpanComparator
 	
 	public boolean isEqual(Span left, Span right)
 	{
-		return left.from.compareTo(right.from)==0 && left.to.compareTo(right.to)==0;
+		PointComparator comparator = new PointComparator();
+		return comparator.compare(left.from,right.from)==0 && comparator.compare(left.to,right.to)==0;
 	}
 
 	public boolean intersects(Span first, Span second)
@@ -42,7 +43,7 @@ public class SpanComparator
 		sorted[1]=span.to;
 		sorted[2]=other.from;
 		sorted[3]=other.to;
-		Arrays.sort(sorted);
+		Arrays.sort(sorted,new PointComparator());
 		return new Span(sorted[1],sorted[2]);
 	}
 
