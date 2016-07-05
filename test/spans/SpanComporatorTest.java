@@ -80,9 +80,9 @@ public class SpanComporatorTest
 	}
 
 
-	private void assertSpans(Span intersection, Span span)
+	private void assertSpans(Span expected, Span actual)
 	{
-		assertEquals(intersection.toString(), span.toString());
+		assertEquals(expected.toString(), actual.toString());
 	}
 
 	@Test
@@ -92,12 +92,20 @@ public class SpanComporatorTest
 		noIntersection(span, "[5,9]");
 		assertIntersection(span,"[5,15]","(10,15]");
 		assertIntersection(span,"(10,20]","(10,20]");
+		assertIntersection(span,"[10,20]","(10,20]");
 		assertIntersection(span,"[11,19]","[11,19]");
 		assertIntersection(span,"[15,25]","[15,20]");
 		noIntersection(span, "[25,30]");
 
 		noIntersection(span, "[5,10]");
 		noIntersection(span, "[5,10)");
+	}
+	
+	@Test
+	public void mixedEndpointIntersection()
+	{
+		Span span = new Span("(10,20)");
+		assertIntersection(span,"[10,20]","(10,20)");
 	}
 
 	@Test
@@ -120,10 +128,10 @@ public class SpanComporatorTest
 		assertFalse(comparator.intersects(span, new Span(other)));
 	}
 	
-	private void assertIntersection(Span span, String other, String result)
+	private void assertIntersection(Span span, String other, String expected)
 	{
 		assertTrue(comparator.intersects(span, new Span(other)));
-		assertSpans(comparator.intersection(span, new Span(other)), new Span(result));
+		assertSpans(new Span(expected),comparator.intersection(span, new Span(other)));
 	}
 
 

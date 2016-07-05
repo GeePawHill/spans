@@ -19,14 +19,30 @@ public class Point
 		case GE:
 			if (rhs.value > value) return true;
 			if (rhs.value < value) return false;
-			return rhs.type == Type.GE || rhs.type == Type.LE;
+			switch(rhs.type)
+			{
+			case GE:
+			case GT:
+			case LE:
+				return true;
+			case LT:
+				return false;
+			}
 		case GT:
 			if (rhs.value > value) return true;
 			return false;
 		case LE:
 			if (rhs.value < value) return true;
 			if (rhs.value > value) return false;
-			return rhs.type == Type.GE || rhs.type == Type.LE;
+			switch(rhs.type)
+			{
+			case GE:
+			case LE:
+			case LT:
+				return true;
+			case GT:
+				return false;
+			}
 		case LT:
 			if (rhs.value < value) return true;
 			return false;
